@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "704316808356",
+    "project_id": "fudon-60dbb",
+    "storage_bucket": "fudon-60dbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704316808356:android:b4aa45426c8f610f31da31",
+        "android_client_info": {
+          "package_name": "com.example.fudon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaM4aCEswV06z1oyz3FvcZFkEcYp_a1rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
