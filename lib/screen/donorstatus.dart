@@ -72,7 +72,7 @@ class _donarstatusState extends State<donarstatus> {
 Widget singlestatusitem(DocumentSnapshot doc) {
   return Container(
     width: 350,
-    height: 300,
+    height: 250,
     margin: EdgeInsets.only(left: 20, top: 65, right: 20),
     decoration: BoxDecoration(
       color: Colors.grey.shade200,
@@ -95,7 +95,7 @@ Widget singlestatusitem(DocumentSnapshot doc) {
       //     ),
       //     Padding(padding: EdgeInsets.only(left: 70)),
       //     Text(
-      //       date,
+      //       Timestamp.fromMillisecondsSinceEpoch(a),
       //       textAlign: TextAlign.left,
       //       style: GoogleFonts.kanit(
       //           textStyle: TextStyle(color: Colors.black), fontSize: 20),
@@ -145,14 +145,14 @@ Widget singlestatusitem(DocumentSnapshot doc) {
         children: [
           Padding(padding: EdgeInsets.only(left: 30)),
           Text(
-            "food kg    :",
+            "food count   :",
             textAlign: TextAlign.left,
             style: GoogleFonts.kanit(
                 textStyle: TextStyle(color: Colors.black), fontSize: 20),
           ),
           Padding(padding: EdgeInsets.only(left: 70)),
           Text(
-            doc.get('weight'),
+            doc.get('foodcount').toString(),
             textAlign: TextAlign.left,
             style: GoogleFonts.kanit(
                 textStyle: TextStyle(color: Colors.black), fontSize: 20),

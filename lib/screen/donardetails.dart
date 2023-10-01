@@ -169,7 +169,7 @@ class _donardetailsState extends State<donardetails> {
                     } else {
                       isloading = true;
                       Map<String, String> flag = await donatefood(
-                          controllerName.text,
+                          controllername.text,
                           controllerfoodtype.text,
                           controllerfoodcount.text,
                           vehicle,
