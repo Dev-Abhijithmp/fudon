@@ -161,6 +161,25 @@ Widget singleacceptitem(DocumentSnapshot doc, context) {
             ),
           ],
         ),
+        SizedBox(height: 20),
+        Row(
+          children: [
+            Padding(padding: EdgeInsets.only(left: 30)),
+            Text(
+              "MAX TIME    :",
+              textAlign: TextAlign.left,
+              style: GoogleFonts.kanit(
+                  textStyle: TextStyle(color: Colors.black), fontSize: 18),
+            ),
+            Padding(padding: EdgeInsets.only(left: 70)),
+            Text(
+              doc.get('maxtime'),
+              textAlign: TextAlign.left,
+              style: GoogleFonts.kanit(
+                  textStyle: TextStyle(color: Colors.black), fontSize: 18),
+            ),
+          ],
+        ),
 
         // Row(
         //   children: [
@@ -200,7 +219,8 @@ Widget singleacceptitem(DocumentSnapshot doc, context) {
                     doc.get('address'),
                     doc.get('district'),
                     doc.get('phone'),
-                    doc.get('donationid'));
+                    doc.get('donationid'),
+                    doc.get('maxtime'));
                 await changestatus(doc.get('donationid'), "ongoing");
               },
               child: Text(

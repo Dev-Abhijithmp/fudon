@@ -12,6 +12,7 @@ Future<Map<String, String>> donatefood(
   String address,
   String district,
   String phone,
+  String maxtime,
   //Position position,
 ) async {
   try {
@@ -36,6 +37,7 @@ Future<Map<String, String>> donatefood(
       'address': address,
       'district': district,
       'phone': phone,
+      'maxtime':maxtime,
       'date': DateTime.now(),
       // 'location': {
       //   'latitude': position.latitude,
@@ -61,7 +63,8 @@ Future<Map<String, String>> Acceptfood(
     String address,
     String district,
     String phone,
-    String donationid
+    String donationid,
+    String maxtime,
     //Position position,
     ) async {
   try {
@@ -76,6 +79,7 @@ Future<Map<String, String>> Acceptfood(
       'address': address,
       'district': district,
       'phone': phone,
+      'maxtime': maxtime,
       'date': DateTime.now(),
       // 'location': {
       //   'latitude': position.latitude,

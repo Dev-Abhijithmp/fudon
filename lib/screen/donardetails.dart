@@ -20,6 +20,7 @@ TextEditingController controllerdistrict = TextEditingController();
 TextEditingController controllernum = TextEditingController();
 TextEditingController controllerfoodcount = TextEditingController();
 TextEditingController controllerName = TextEditingController();
+TextEditingController controllerTime = TextEditingController();
 
 bool isloading = false;
 
@@ -61,7 +62,7 @@ class _donardetailsState extends State<donardetails> {
             padding: EdgeInsets.only(left: 20, right: 20),
             child: Column(children: [
               TextFormField(
-                controller: controllername,
+                controller: controllerName,
                 decoration: InputDecoration(labelText: "Donator name"),
               ),
             ]),
@@ -87,6 +88,15 @@ class _donardetailsState extends State<donardetails> {
               TextFormField(
                 controller: controllerfoodcount,
                 decoration: InputDecoration(labelText: "Enter food count"),
+              ),
+            ]),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20, right: 20),
+            child: Column(children: [
+              TextFormField(
+                controller: controllerTime,
+                decoration: InputDecoration(labelText: "Enter max time"),
               ),
             ]),
           ),
@@ -163,19 +173,21 @@ class _donardetailsState extends State<donardetails> {
                         controllerdistrict.text == "" ||
                         controllerfoodtype.text == "" ||
                         controllerfoodcount.text == "" ||
-                        controllername.text == "" ||
+                        controllerName.text == "" ||
+                        controllerTime.text == "" ||
                         controllernum.text.length < 10) {
                       showdialogue("Error", "Fill all the fields", context);
                     } else {
                       isloading = true;
                       Map<String, String> flag = await donatefood(
-                          controllername.text,
+                          controllerName.text,
                           controllerfoodtype.text,
                           controllerfoodcount.text,
                           vehicle,
                           controlleraddress.text,
                           controllerdistrict.text,
-                          controllernum.text);
+                          controllernum.text,
+                          controllerTime.text);
                       if (flag['status'] == 'success') {
                         showdialogue("success", "success", context);
                         setState(() {
@@ -186,6 +198,7 @@ class _donardetailsState extends State<donardetails> {
                           controlleraddress.clear();
                           controllerdistrict.clear();
                           controllernum.clear();
+                          controllerTime.clear();
                           controllerfoodtype.clear();
                         });
                       } else {
