@@ -100,4 +100,4 @@ class _passwordState extends State<password> {
   }
 }
 
-void alert(String s, String t, BuildContext context) {}
+

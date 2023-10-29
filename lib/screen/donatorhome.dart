@@ -102,7 +102,7 @@ class _DonatorhomeState extends State<Donatorhome> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => donarstatus()));
+                                          builder: (context) => Donarstatus()));
                                 },
                               )),
                           SizedBox(

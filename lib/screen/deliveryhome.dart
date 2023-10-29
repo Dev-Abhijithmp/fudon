@@ -110,7 +110,7 @@ class _deliverypageState extends State<deliverypage> {
                           Padding(
                               padding: EdgeInsets.only(left: 23),
                               child: Text(
-                                "completed",
+                                "Status",
                                 textAlign: TextAlign.right,
                                 style: GoogleFonts.blackHanSans(fontSize: 15),
                               )),

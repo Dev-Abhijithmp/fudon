@@ -16,5 +16,7 @@ Future<void> createuserprofile(
     'email': email,
     'donations': 0,
     'phone': phone,
+    'role': 'user',
+    'isverified': false,
   });
 }

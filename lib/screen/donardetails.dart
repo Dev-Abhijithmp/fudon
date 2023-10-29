@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fudon/add/functions.dart';
 import 'package:fudon/authentication/registration.dart';
+import 'package:fudon/screen/donorstatus.dart';
 import 'package:fudon/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,7 +15,6 @@ class donardetails extends StatefulWidget {
   _donardetailsState createState() => _donardetailsState();
 }
 
-TextEditingController controllerfoodtype = TextEditingController();
 TextEditingController controlleraddress = TextEditingController();
 TextEditingController controllerdistrict = TextEditingController();
 TextEditingController controllernum = TextEditingController();
@@ -26,6 +26,7 @@ bool isloading = false;
 
 class _donardetailsState extends State<donardetails> {
   String vehicle = 'Car';
+  String foodtype = 'Veg';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -71,13 +72,27 @@ class _donardetailsState extends State<donardetails> {
             height: 10,
           ),
           Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            child: Column(children: [
-              TextFormField(
-                controller: controllerfoodtype,
-                decoration: InputDecoration(labelText: "Enter the Food Type"),
-              ),
-            ]),
+            padding: const EdgeInsets.all(16.0),
+            child: DropdownButtonFormField<String>(
+              decoration: InputDecoration(labelText: 'Food type'),
+              value: foodtype,
+              icon: const Icon(Icons.food_bank),
+              iconSize: 24,
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              onChanged: (String? newValue2) {
+                setState(() {
+                  foodtype = newValue2!;
+                });
+              },
+              items: <String>['Veg', 'Non Veg']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
           ),
           SizedBox(
             height: 10,
@@ -171,7 +186,7 @@ class _donardetailsState extends State<donardetails> {
                   onTap: () async {
                     if (controlleraddress.text == "" ||
                         controllerdistrict.text == "" ||
-                        controllerfoodtype.text == "" ||
+                        foodtype == "" ||
                         controllerfoodcount.text == "" ||
                         controllerName.text == "" ||
                         controllerTime.text == "" ||
@@ -181,7 +196,7 @@ class _donardetailsState extends State<donardetails> {
                       isloading = true;
                       Map<String, String> flag = await donatefood(
                           controllerName.text,
-                          controllerfoodtype.text,
+                          foodtype,
                           controllerfoodcount.text,
                           vehicle,
                           controlleraddress.text,
@@ -189,7 +204,7 @@ class _donardetailsState extends State<donardetails> {
                           controllernum.text,
                           controllerTime.text);
                       if (flag['status'] == 'success') {
-                        showdialogue("success", "success", context);
+                        await showdialoguedonar("success", "success", context);
                         setState(() {
                           isloading = false;
                           controllerMail.clear();
@@ -199,8 +214,13 @@ class _donardetailsState extends State<donardetails> {
                           controllerdistrict.clear();
                           controllernum.clear();
                           controllerTime.clear();
-                          controllerfoodtype.clear();
                         });
+                       
+                        // ignore: use_build_context_synchronously
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(builder: (_) => Donarstatus()),
+                        //     (route) => false);
                       } else {
                         setState(() {
                           isloading = false;

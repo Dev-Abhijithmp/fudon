@@ -8,14 +8,14 @@ import 'package:fudon/innerscreen/loadingpage.dart';
 import 'package:fudon/innerscreen/somethingwentwrong.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class donarstatus extends StatefulWidget {
-  donarstatus({Key? key}) : super(key: key);
+class Donarstatus extends StatefulWidget {
+  Donarstatus({Key? key}) : super(key: key);
 
   @override
-  _donarstatusState createState() => _donarstatusState();
+  _DonarstatusState createState() => _DonarstatusState();
 }
 
-class _donarstatusState extends State<donarstatus> {
+class _DonarstatusState extends State<Donarstatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

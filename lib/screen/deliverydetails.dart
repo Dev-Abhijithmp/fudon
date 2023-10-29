@@ -3,8 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fudon/add/functions.dart';
+import 'package:fudon/authentication/password.dart';
 import 'package:fudon/innerscreen/loadingpage.dart';
 import 'package:fudon/innerscreen/somethingwentwrong.dart';
+import 'package:fudon/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class details extends StatefulWidget {
@@ -211,7 +213,7 @@ Widget singleacceptitem(DocumentSnapshot doc, context) {
               borderRadius: BorderRadius.circular(10)),
           child: GestureDetector(
               onTap: () async {
-                await Acceptfood(
+                var flag = await Acceptfood(
                     doc.get('donatorname'),
                     doc.get('foodtype'),
                     doc.get('foodcount'),
@@ -222,6 +224,9 @@ Widget singleacceptitem(DocumentSnapshot doc, context) {
                     doc.get('donationid'),
                     doc.get('maxtime'));
                 await changestatus(doc.get('donationid'), "ongoing");
+                if (flag['status'] == 'success') {
+                  showdialogue('', 'success', context);
+                }
               },
               child: Text(
                 "ACCEPT FOOD",

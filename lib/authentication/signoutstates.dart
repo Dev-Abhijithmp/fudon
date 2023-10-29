@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fudon/authentication/authenticate.dart';
 import 'package:fudon/authentication/login.dart';
+import 'package:fudon/authentication/userswitcher.dart';
 import 'package:fudon/innerscreen/loadingpage.dart';
 import 'package:fudon/innerscreen/somethingwentwrong.dart';
 import 'package:fudon/screen/welcome.dart';
@@ -25,9 +26,9 @@ class _SigninoutState extends State<Signinout> {
             if (snapshot.hasError) {
               return Somethingwentwrong();
             } else if (snapshot.connectionState == ConnectionState.done) {
-              return welcome();
+              return Userswitcher();
             } else if (snapshot.hasData) {
-              return welcome();
+              return Userswitcher();
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Loadingpage();
             } else {

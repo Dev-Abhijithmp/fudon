@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fudon/add/functions.dart';
 import 'package:fudon/innerscreen/loadingpage.dart';
 import 'package:fudon/innerscreen/somethingwentwrong.dart';
+import 'package:fudon/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class deliverystatus extends StatefulWidget {
@@ -56,7 +57,7 @@ class _deliverystatusState extends State<deliverystatus> {
                   return ListView.builder(
                     itemCount: docs.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return singlecompletingitem(docs[index]);
+                      return singlecompletingitem(docs[index], context);
                     },
                   );
                 } else {
@@ -71,7 +72,7 @@ class _deliverystatusState extends State<deliverystatus> {
   }
 }
 
-Widget singlecompletingitem(DocumentSnapshot doc) {
+Widget singlecompletingitem(DocumentSnapshot doc, context) {
   return Container(
     height: 200,
     width: 350,
@@ -138,8 +139,9 @@ Widget singlecompletingitem(DocumentSnapshot doc) {
         ),
         InkWell(
             onTap: () async {
-              changestatus(doc.id, 'completed');
               changestatusaccept(doc.id, 'completed');
+              await changestatus(doc.id, 'completed')
+                  .then((value) => showdialogue('', 'success', context));
             },
             child: Container(
               width: 200,
