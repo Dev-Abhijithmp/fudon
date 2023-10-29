@@ -1,24 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fudon/innerscreen/loadingpage.dart';
+import 'package:fudon/screen/welcome.dart';
+import 'package:fudon/widgets.dart';
 
 import '../innerscreen/somethingwentwrong.dart';
 import 'adminfunctions.dart';
 
-class ViewUsers extends StatelessWidget {
+class ViewUsers extends StatefulWidget {
   const ViewUsers({Key? key}) : super(key: key);
 
+  @override
+  State<ViewUsers> createState() => _ViewUsersState();
+}
+
+bool verified = false;
+
+class _ViewUsersState extends State<ViewUsers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("View staffs"),
+        title: const Text("View Users"),
         backgroundColor: Colors.blue,
+        actions: [
+          Center(child: Text(verified ? 'Verified' : 'Not verified')),
+          Switch.adaptive(
+            activeColor: darkorange,
+            value: verified,
+            onChanged: (value) => setState(() {
+              verified = value;
+            }),
+          )
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('user')
             .where('role', isEqualTo: 'user')
+            .where('isverified', isEqualTo: verified)
             .snapshots(includeMetadataChanges: true),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError == true) {
@@ -45,8 +65,7 @@ Widget singlecollectionstaff(DocumentSnapshot doc, context) {
     width: double.infinity,
     height: 350,
     decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(30), bottomLeft: Radius.circular(30)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         border: Border.all(color: Colors.blue)),
     margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
     child: Column(
@@ -69,9 +88,7 @@ Widget singlecollectionstaff(DocumentSnapshot doc, context) {
                 height: 40,
                 width: 120,
                 decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        bottomLeft: Radius.circular(30)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.blue),
                 child: const Center(
                   child: Text("Remove"),
@@ -80,15 +97,17 @@ Widget singlecollectionstaff(DocumentSnapshot doc, context) {
             ),
             InkWell(
               onTap: () {
-                verifyuser(doc.id);
+                verifyuser(doc.id).then((value) {
+                  if (value['status'] == "success") {
+                    showdialogue('', 'user verified', context);
+                  }
+                });
               },
               child: Container(
                 height: 40,
                 width: 120,
                 decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        bottomLeft: Radius.circular(30)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.blue),
                 child: const Center(
                   child: Text("verify"),
